@@ -8,7 +8,7 @@
  *
  * @author hp 
  */
-public class InPreBuildTree {
+ class InPreBuildTree {
 	 
 	public TreeNode buildTree(int[] preorder, int[] inorder) {
 		
@@ -57,13 +57,18 @@ public class InPreBuildTree {
 			val = x;
 		}
 	}
-	public static void main(String[] args) {
+	public class BuildBinaryTree {
+
+  public static void main(String[] args) {
 
     BinaryTree a = new BinaryTree();
 
     Node root = null;
     int[] preorderArray = {2, 4, 7, 3, 8};
     int[] inorderArray = {7, 4, 3, 2, 8};
-    int root=buildTree( preorderArray, inorderArray);
-		
+    
+    root = a.buildTree(preorderArray, inorderArray);
+    
+  }
+
 }
