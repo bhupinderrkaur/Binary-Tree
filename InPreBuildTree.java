@@ -1,74 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author hp 
- */
- class InPreBuildTree {
-	 
-	public TreeNode buildTree(int[] preorder, int[] inorder) {
-		
-		if (preorder == null || inorder == null || preorder.length == 0 || inorder.length == 0 
-				|| preorder.length != inorder.length) {
-			return null;
-		}
-
-		int preorderLength = preorder.length; 
-		int inorderLength = inorder.length;
-
-		return helper(preorder, inorder, 0, preorderLength - 1, 0, inorderLength - 1);
-	}
-
-	private TreeNode helper(int[] preorder,int[] inorder,int preStart,int preEnd,int inStart,int inEnd) {
-		if (inStart > inEnd) {
-			return null;
-		}
-
-		int rootIndex = 0;
-		int rootValue = preorder[preStart];
-		TreeNode root = new TreeNode(rootValue);
-
-		for (int i = inStart; i <= inEnd; i++) {
-			if (inorder[i] == rootValue) {
-				rootIndex = i;
-				break;
-			}
-		}
-
-		int length = rootIndex - inStart;
-		
-		root.left = helper(preorder, inorder, preStart + 1, preStart + length, inStart, rootIndex - 1);
-		root.right = helper(preorder, inorder, preStart + length + 1, preEnd, rootIndex + 1, inEnd);
-
-		return root;
-	}
-	
-	
-	// TreeNode 
-	private class TreeNode {
-		int val;
-		TreeNode left;
-		TreeNode right;
-		TreeNode (int x) {
-			val = x;
-		}
-	}
-	public class BuildBinaryTree {
-
-  public static void main(String[] args) {
-
-    BinaryTree a = new BinaryTree();
-
-    Node root = null;
-    int[] preorderArray = {2, 4, 7, 3, 8};
-    int[] inorderArray = {7, 4, 3, 2, 8};
-    
-    root = a.buildTree(preorderArray, inorderArray);
-    
-  }
-
+class Solution
+{
+    static int i = 0; //to traverse pre-order array
+    public static Node buildTree(int inorder[], int preorder[], int n)
+    {
+        i = 0;
+        return tree(inorder,preorder,0,n-1);
+    }
+    static Node tree(int inorder[], int preorder[], int start, int end){
+	    
+        if(start > end) return null;
+        Node root = new Node(preorder[i++]);
+	if(start==end) return root; 
+	    
+        int j; //inorder element index
+        for(j=start;j<=end;j++)
+            if(inorder[j] == root.data)
+                break;
+	    
+        root.left = tree(inorder,preorder,start,j-1);
+        root.right = tree(inorder,preorder,j+1,end);
+        return root;
+    }
 }
